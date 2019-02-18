@@ -1,5 +1,5 @@
 """
-The purpose of this file is to find the male to female ratioof all residents in Chester County 
+The purpose of this file is to find the male to female ratio of all residents in Chester County 
 using 2015 LODES Census data. This script only uses one map reduce step to do this. The purpose 
 of this exercise is to familiarize ourselves with the LODES data format as well as check the 
 CSV file for any imperfections in the data. 
