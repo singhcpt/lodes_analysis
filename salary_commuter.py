@@ -2,7 +2,7 @@ from mrjob.job import MRJob
 from mrjob.step import MRStep
 import re
 
-class age_commuter(MRJob):
+class salary_commuter(MRJob):
 
     def steps(self):
         return [
@@ -44,7 +44,7 @@ class age_commuter(MRJob):
                 range_1_total = total_salary_ranges[0]
                 range_2_total = total_salary_ranges[1]
                 range_3_total = total_salary_ranges[2]
-        
+
         range_1_cnt = 0
         range_2_cnt = 0
         range_3_cnt = 0
@@ -52,7 +52,7 @@ class age_commuter(MRJob):
         # Populating actual counts using OD salary data
         for workcode, sals, name in value_list:
             # Checking if data is from OD
-            if (name == "od_salary_ranges") and (workcode != key):
+            if (name == "od_salary_ranges") and (workcode[0:11] != key[0:11]): # checking that the county tracts are equal for specificity
                 range_1_cnt += sals[0]
                 range_2_cnt += sals[1]
                 range_3_cnt += sals[2]
@@ -61,7 +61,7 @@ class age_commuter(MRJob):
         yield "Salary Range 2", (range_2_cnt, range_2_total)
         yield "Salary Range 3", (range_3_cnt, range_3_total)
 
-    
+
     def final_reducer(self, key, values):
         commuters = 0
         totals = 0
@@ -72,4 +72,4 @@ class age_commuter(MRJob):
 
 
 if __name__ == '__main__':
-    age_commuter.run()
+    salary_commuter.run()
